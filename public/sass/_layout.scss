@@ -1,0 +1,125 @@
+@keyframes greyscaleZoom {
+  0% {
+    filter:grayscale(0%);
+  }
+
+  100% {
+    filter:grayscale(100%);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    font-size: 0;
+    text-shadow: 0 0 0 var(--color-grey-dark-1);
+  }
+
+  100% {
+    opacity: 1;
+    font-size: 3rem;
+    text-shadow: 0.3rem 0.3rem 1rem var(--color-grey-dark-1);
+  }
+}
+
+img {
+  height: 20rem;
+  width: 20rem;
+}
+
+.header {
+  &__text-box {
+    padding: 3.5rem;
+
+    .heading-primary {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-grey-dark-1);
+      margin: 2rem;
+
+      &--main {
+        font-size: 4.5rem;
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+.grid-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: var(--line);
+    border-radius: 0.5rem;
+    margin: 1.5rem;
+    background-color: rgba(13,97,138,0.2);
+    padding: 2rem;
+
+    &--name {
+      display: flex;
+      text-align: center;
+      color: var(--color-primary-light);
+      justify-content: center;
+      text-transform: uppercase;
+    }
+  }
+
+  &__card:hover {
+    animation: greyscaleZoom 0.3s ease-in-out forwards;
+  }
+
+  &__card:hover::after {
+    background-color: var(--color-grey-dark-1);
+    border: var(--line);
+    border-radius: 5px;
+    content: "Book Now";
+    font-weight: 100;
+    font-size: 1px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    -webkit-text-stroke: 0.7px black;
+    opacity: 0;
+    animation: textFadeIn 0.45s ease-in-out forwards;
+  }
+}
+
+
+.main-content {
+  margin: auto;
+
+  &__text-box {
+    .heading-primary {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-grey-dark-1);
+      margin: 2rem;
+
+      &--main {
+        font-size: 4.5rem;
+        font-weight: 900;
+      }
+
+      &--sub {
+        font-size: 3rem;
+        font-weight: 400;
+      }
+    }
+  }
+}
