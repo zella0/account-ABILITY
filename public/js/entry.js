@@ -135,7 +135,5 @@ $(document).ready(function() {
     $('#cody-info').hide();
   });
 
-
-  // ScrollPosStyler.init();
-
+  
 });
