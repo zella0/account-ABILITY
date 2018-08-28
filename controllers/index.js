@@ -28,26 +28,11 @@ module.exports = {
       .where('users.email', req.body.user_email)
       .then((user) => {
         if (user[0].password === req.body.user_password) {
-          req.session.user_id = user[0].id
-          res.redirect(`/user/${req.session.user_id}`)
+          req.session.user_id = user[0].id;
+          res.redirect(`/user/${user[0].id}`);
         } else {
           res.redirect('/');
         }
       })
-  },
-  renderOwnerEntry: (req, res) => {
-    if (req.session.owner_id) {
-      res.redirect(`/owner/${req.session.owner_id}`)
-    } else {
-      res.render('owner_entry', {
-        API_KEY: API_KEY,
-      })
-    }
-  },
-  ownerRegister: (req, res) => {
-
-  },
-  ownerLogin: (req, res) => {
-
   }
 }
