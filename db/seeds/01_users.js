@@ -6,20 +6,18 @@ exports.seed = function(knex, Promise) {
       return knex('users').insert([{
           name: 'troy',
           email: 'troy@troy.com',
-          password: 'troy',
-          comments: 'smells like greatness'
+          password: 'troy'
+
         },
         {
           name: 'nick',
           email: 'nick@nick.com',
-          password: 'nick',
-          comments: 'great lighting'
+          password: 'nick'
         },
         {
           name: 'jeff',
           email: 'jeff@jeff.com',
-          password: 'jeff',
-          comments: 'automatic flush doesnt work'
+          password: 'jeff'
         }
       ]);
     });

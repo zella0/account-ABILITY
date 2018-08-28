@@ -7,10 +7,6 @@ module.exports = function(app){
   app.post('/userRegister', index_controller.userRegister);
   app.post('/userLogin', index_controller.userLogin);
 
-  app.get('/ownerEntry', index_controller.renderOwnerEntry);
-  // app.post('/ownerEntry', index_controller.ownerRegister);
-  // app.post('/ownerEntry', index_controller.ownerLogin);
-
   app.use(authMiddleWare);
   app.get('/user/:id', user_controller.renderUser);
 }

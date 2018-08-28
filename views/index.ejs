@@ -1,6 +1,6 @@
 <% include ./partials/head %>
 
-<div class="cd-user-modal">
+  <div class="cd-user-modal">
     <!-- this is the entire modal form, including the background -->
     <div class="cd-user-modal-container">
       <!-- this is the container wrapper -->
@@ -76,9 +76,6 @@
   <!-- cd-user-modal -->
   <header class="header">
     <nav class="main-nav sps" data-sps-offset="100">
-      <a class="main-nav__text" href="/ownerEntry">
-        <span class="text-content">Are you an owner?</span>
-      </a>
       <a class="main-nav__text cd-login">
           <span class="text-content cd-login">Log In</span>
       </a>
@@ -89,7 +86,9 @@
   </header>
 
   <main class="main">
+    <div id="map-canvas" style="height: 600px; width: 100%;">
 
+    </div>
   </main>
 
 <% include ./partials/footer %>

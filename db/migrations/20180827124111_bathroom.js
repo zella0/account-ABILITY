@@ -1,16 +1,11 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('bathroom', (table) => {
     table.increments();
-    table.string('img')
+    table.string('img_url');
     table.integer('stars').defaultTo(0);
     table.string('bathroom_type');
-    table.string('review');
-    table.integer('users_id')
-      .references('id')
-      .inTable('users')
-      .onDelete('cascade')
-      .index();
     table.integer('location_id')
+      .notNullable()
       .references('id')
       .inTable('location')
       .onDelete('cascade')

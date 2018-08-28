@@ -3,11 +3,6 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('location_name');
     table.string('location_address');
-    table.integer('owners_id')
-      .references('id')
-      .inTable('owners')
-      .onDelete('cascade')
-      .index();
     table.timestamps(true, true);
   })
 };
