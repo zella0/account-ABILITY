@@ -18,6 +18,8 @@ function initMap() {
 
       infoWindow.open(map);
       map.setCenter(pos);
+      infoWindow.open(map);
+
 
       // set click listenr on map
       google.maps.event.addListener(map, 'click', function(event) {
