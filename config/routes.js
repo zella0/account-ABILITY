@@ -9,6 +9,7 @@ module.exports = function(app){
 
   app.use(authMiddleWare);
   app.get('/user/:id', user_controller.renderUser);
+  app.post('/user/:id/createTodo', user_controller.createTodo);
 }
 
 function authMiddleWare(req, res, next){

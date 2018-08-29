@@ -41,22 +41,27 @@ function initMap() {
 
   // convert latLng to address
   function geocodeLatLng(geocoder, map, infoWindow, latLngStr) {
-        var latLngArr = latLngStr.split(',', 2);
-        var latlng = {lat: parseFloat(latLngArr[0]), lng: parseFloat(latLngArr[1])};
-        return geocoder.geocode({'location': latlng}, function(results, status) {
-          if (status === 'OK') {
-            if (results[0]) {
-              infoWindow.setContent(results[0].formatted_address);
-              console.log(results[0].formatted_address);
-              return results[0].formatted_address;
-            } else {
-              window.alert('No results found');
-            }
-          } else {
-            window.alert('Geocoder failed due to: ' + status);
-          }
-        });
+    var latLngArr = latLngStr.split(',', 2);
+    var latlng = {
+      lat: parseFloat(latLngArr[0]),
+      lng: parseFloat(latLngArr[1])
+    };
+    return geocoder.geocode({
+      'location': latlng
+    }, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          infoWindow.setContent(results[0].formatted_address);
+          console.log(results[0].formatted_address);
+          return results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
       }
+    });
+  }
 
   // set marker to current position
   function addMarker(props) {
@@ -83,4 +88,20 @@ function initMap() {
       'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
+
+  function autoCompleteSearch() {
+      let ac = new google.maps.places.Autocomplete(
+      (document.getElementById('location_address')), {
+        types: ['geocode']
+      });
+
+    ac.addListener('place_changed', function(event) {
+      let place = ac.getPlace();
+      let latLng = `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`
+      document.getElementById('latLng').value = latLng;
+      console.log(latLng);
+    });
+  }
+  autoCompleteSearch()
+
 };

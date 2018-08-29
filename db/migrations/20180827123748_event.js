@@ -1,9 +1,10 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('event', (table) => {
+  return knex.schema.createTable('todos', (table) => {
     table.increments();
-    table.string('event_name');
+    table.string('title');
+    table.string('description');
     table.string('location');
-    table.string('time');
+    table.string('due_time');
     table.string('reward_points');
     table.integer('user_id')
         .notNullable()
@@ -16,5 +17,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('event');
+  return knex.schema.dropTable('todos');
 };
