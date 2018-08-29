@@ -1,94 +1,94 @@
 <% include ./partials/head %>
 
-  <div class="cd-user-modal">
-    <!-- this is the entire modal form, including the background -->
-    <div class="cd-user-modal-container">
-      <!-- this is the container wrapper -->
-      <ul class="cd-switcher" style="list-style: none;">
-        <li><a href="#0">Sign in</a></li>
-        <li><a href="#0">New account</a></li>
-      </ul>
-      <div id="cd-login">
-        <!-- log in form -->
-        <form class="cd-form" action="/userLogin" method="post">
-          <p class="fieldset">
-            <label class="image-replace cd-email" for="signin-email">E-mail</label>
-            <input class="full-width has-padding has-border" name="user_email" id="signin-email" type="email" placeholder="E-mail">
-          </p>
-          <p class="fieldset">
-            <label class="image-replace cd-password" for="signin-password">Password</label>
-            <input class="full-width has-padding has-border" name="user_password" id="signin-password" type="password" placeholder="Password">
-            <a href="#0" class="hide-password">Show</a>
-          </p>
-          <p class="fieldset">
-            <input type="checkbox" id="remember-me" checked>
-            <label for="remember-me">Remember me</label>
-          </p>
-          <p class="fieldset">
-            <input class="full-width" type="submit" value="Login">
-          </p>
-        </form>
-        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+   <div class="cd-user-modal">
+      <!-- this is the entire modal form, including the background -->
+      <div class="cd-user-modal-container">
+         <!-- this is the container wrapper -->
+         <ul class="cd-switcher" style="list-style: none;">
+            <li><a href="#0">Sign in</a></li>
+            <li><a href="#0">New account</a></li>
+         </ul>
+         <div id="cd-login">
+            <!-- log in form -->
+            <form class="cd-form" action="/userLogin" method="post">
+               <p class="fieldset">
+                  <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                  <input class="full-width has-padding has-border" name="user_email" id="signin-email" type="email" placeholder="E-mail">
+               </p>
+               <p class="fieldset">
+                  <label class="image-replace cd-password" for="signin-password">Password</label>
+                  <input class="full-width has-padding has-border" name="user_password" id="signin-password" type="password" placeholder="Password">
+                  <a href="#0" class="hide-password">Show</a>
+               </p>
+               <p class="fieldset">
+                  <input type="checkbox" id="remember-me" checked>
+                  <label for="remember-me">Remember me</label>
+               </p>
+               <p class="fieldset">
+                  <input class="full-width" type="submit" value="Login">
+               </p>
+            </form>
+            <!-- <a href="#0" class="cd-close-form">Close</a> -->
+         </div>
+
+         <div id="cd-signup">
+            <!-- sign up form -->
+            <form class="cd-form" action="/userRegister" method="post">
+               <p class="fieldset">
+                  <label class="image-replace cd-username" for="signup-username">Username</label>
+                  <input class="full-width has-padding has-border" name="user_name" id="signup-username" type="text" placeholder="Username" required>
+               </p>
+
+               <p class="fieldset">
+                  <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                  <input class="full-width has-padding has-border" name="user_email" id="signup-email" type="email" placeholder="E-mail" required>
+               </p>
+
+               <p class="fieldset">
+                  <label class="image-replace cd-password" for="signup-password">Password</label>
+                  <input class="full-width has-padding has-border" name="user_password" id="signup-password" type="password" placeholder="Password" required>
+                  <a href="#0" class="hide-password">Hide</a>
+               </p>
+
+               <p class="fieldset">
+                  <label class="image-replace cd-password" for="confirm-password">Confirm Password</label>
+                  <input class="full-width has-padding has-border" name="confirmed_pw" id="confirm-password" type="password" placeholder="Confirm Password" oninput="check(this)" required>
+                  <script language='javascript' type='text/javascript'>
+                     function check(input) {
+                        if (input.value != document.getElementById('signup-password').value) {
+                           input.setCustomValidity('Password Must be Matching.');
+                        } else {
+                           input.setCustomValidity('');
+                        }
+                     }
+                  </script>
+               </p>
+
+               <p class="fieldset">
+                  <input class="full-width has-padding" type="submit" value="Create account">
+               </p>
+            </form>
+         </div>
+         <!-- cd-signup -->
       </div>
-
-      <div id="cd-signup">
-        <!-- sign up form -->
-        <form class="cd-form" action="/userRegister" method="post">
-          <p class="fieldset">
-            <label class="image-replace cd-username" for="signup-username">Username</label>
-            <input class="full-width has-padding has-border" name="user_name" id="signup-username" type="text" placeholder="Username" required>
-          </p>
-
-          <p class="fieldset">
-            <label class="image-replace cd-email" for="signup-email">E-mail</label>
-            <input class="full-width has-padding has-border" name="user_email" id="signup-email" type="email" placeholder="E-mail" required>
-          </p>
-
-          <p class="fieldset">
-            <label class="image-replace cd-password" for="signup-password">Password</label>
-            <input class="full-width has-padding has-border" name="user_password" id="signup-password" type="password" placeholder="Password" required>
-            <a href="#0" class="hide-password">Hide</a>
-          </p>
-
-          <p class="fieldset">
-            <label class="image-replace cd-password" for="confirm-password">Confirm Password</label>
-            <input class="full-width has-padding has-border" name="confirmed_pw" id="confirm-password" type="password" placeholder="Confirm Password" oninput="check(this)" required>
-            <script language='javascript' type='text/javascript'>
-              function check(input) {
-                if (input.value != document.getElementById('signup-password').value) {
-                  input.setCustomValidity('Password Must be Matching.');
-                } else {
-                  input.setCustomValidity('');
-                }
-              }
-            </script>
-          </p>
-
-          <p class="fieldset">
-            <input class="full-width has-padding" type="submit" value="Create account">
-          </p>
-        </form>
-      </div>
-      <!-- cd-signup -->
-    </div>
-    <!-- cd-user-modal-container -->
-  </div>
-  <!-- cd-user-modal -->
-  <header class="header">
-    <nav class="main-nav sps" data-sps-offset="100">
-      <a class="main-nav__text cd-login">
+      <!-- cd-user-modal-container -->
+   </div>
+   <!-- cd-user-modal -->
+   <header class="header">
+      <nav class="main-nav sps" data-sps-offset="100">
+         <a class="main-nav__text cd-login">
           <span class="text-content cd-login">Log In</span>
       </a>
-      <a class="main-nav__text cd-signup">
+         <a class="main-nav__text cd-signup">
           <span class="text-content cd-signup">Sign Up</span>
       </a>
-    </nav>
-  </header>
+      </nav>
+   </header>
 
-  <main class="main">
+   <!-- <main class="main">
     <div id="map-canvas" style="height: 600px; width: 100%;">
 
     </div>
-  </main>
-
-<% include ./partials/footer %>
+  </main> -->
+   <!-- ====>use the "map-canvas" in another page.<===== -->
+   <% include ./partials/footer %>

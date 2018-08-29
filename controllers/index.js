@@ -5,6 +5,7 @@ const API_KEY = fs.readFileSync(".apikey", 'utf8');
 module.exports = {
   renderMain: (req, res) => {
     if (req.session.user_id) {
+      // change: if statement to false for redirecting sessions
       res.redirect(`/user/${req.session.user_id}`)
     } else {
       res.render('index', {
