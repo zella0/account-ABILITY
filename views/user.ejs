@@ -1,22 +1,30 @@
 <% include ./partials/head %>
+  <!-- <div id="map-canvas" style="height: 500px; width: 500px"></div> -->
+  <div class="container">
 
-<div class="container" style="display: flex; justify-content: space-between">
+    <form action="/setEvent" method="post">
+      <div class="form-group">
+        <label for="event_name">Event Name</label>
+        <input class="form-control" name="event_name" id="event_name" placeholder="Enter event name...">
+      </div>
+      <div class="form-group">
+        <label for="latLng-input">Latitude/Longitude</label>
+        <input class="form-control" name="latLng-input" id="latLng-input" placeholder="Latitude/Longitude">
+      </div>
+      <div class="form-group">
+        <label for="datetimepicker1">Date/Time</label>
+        <div class='input-group date' id='datetimepicker1'>
+          <input type='text' name="time" class="form-control" placeholder="Pick a time...">
+          <span class="input-group-addon">
+             <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+      <button type="submit" name="button" class="btn btn-primary">Set Destination</button>
+    </form>
 
-  <div id="map-canvas" style="height: 500px; width: 500px"></div>
+  </div>
 
-  <form class="cd-form" action="/userLogin" method="post">
-    <p class="fieldset">
-      <label for="lat-input">Latitude</label>
-      <input class="full-width has-padding has-border" name="lat-input" id="lat-input" placeholder="Latitude">
-    </p>
-    <p class="fieldset">
-      <label for="lng-input">Longitude</label>
-      <input class="full-width has-padding has-border" name="lng-input" id="lng-input" placeholder="Longitude">
-    </p>
-    <p class="fieldset">
-      <input class="full-width" type="submit" value="Add a bathroom!">
-    </p>
-  </form>
-</div>
 
-<% include ./partials/footer %>
+
+  <% include ./partials/footer %>
