@@ -10,6 +10,7 @@ module.exports = function(app){
   app.use(authMiddleWare);
   app.get('/user/:id', user_controller.renderUser);
   app.post('/user/:id/createTodo', user_controller.createTodo);
+  app.post('/user/:id/createCheckin', user_controller.createCheckin);
 }
 
 function authMiddleWare(req, res, next){
