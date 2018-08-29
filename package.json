@@ -12,12 +12,16 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bootstrap-datepicker": "^1.8.0",
     "connect-session-knex": "^1.4.0",
+    "datetime-picker": "^0.6.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "jquery": "^3.3.1",
+    "jquery-datetimepicker": "^2.5.20",
     "knex": "^0.13.0",
+    "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "pg": "^7.3.0"
   }
