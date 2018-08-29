@@ -1,0 +1,22 @@
+<% include ./partials/head %>
+
+<div class="container" style="display: flex; justify-content: space-between">
+
+  <div id="map-canvas" style="height: 500px; width: 500px"></div>
+
+  <form class="cd-form" action="/userLogin" method="post">
+    <p class="fieldset">
+      <label for="lat-input">Latitude</label>
+      <input class="full-width has-padding has-border" name="lat-input" id="lat-input" placeholder="Latitude">
+    </p>
+    <p class="fieldset">
+      <label for="lng-input">Longitude</label>
+      <input class="full-width has-padding has-border" name="lng-input" id="lng-input" placeholder="Longitude">
+    </p>
+    <p class="fieldset">
+      <input class="full-width" type="submit" value="Add a bathroom!">
+    </p>
+  </form>
+</div>
+
+<% include ./partials/footer %>

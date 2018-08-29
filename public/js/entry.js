@@ -135,5 +135,4 @@ $(document).ready(function() {
     $('#cody-info').hide();
   });
 
-  
 });

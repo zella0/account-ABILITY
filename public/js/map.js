@@ -1,52 +1,94 @@
-// if HTML DOM Element that contains the map is found...
-if (document.getElementById('map-canvas')) {
+function initMap() {
+  let map, infoWindow;
+  let latInput = document.getElementById('lat-input');
+  let lngInput = document.getElementById('lng-input');
+  // sets current position to center
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      infoWindow = new google.maps.InfoWindow;
+      map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 14,
+        center: pos
+      });
+      map.setCenter(pos);
+      infoWindow.open(map);
 
-  // Coordinates to center the map
-  var myLatlng = new google.maps.LatLng(33.4409723, -112.0650445);
 
-  // Other options for the map, pretty much selfexplanatory
-  var mapOptions = {
-    zoom: 14,
-    center: myLatlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
+      // set click listenr on map
+      google.maps.event.addListener(map, 'click', function(event) {
+        // addMarker({coords: event.latLng});
+        var latitude = event.latLng.lat();
+        var longitude = event.latLng.lng();
+        latInput.value = latitude;
+        lngInput.value = longitude;
+        console.log(latitude + ', ' + longitude);
+      })
 
-  // Attach a map to the DOM Element, with the defined settings
-  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-}
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 
 
-// var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// var labelIndex = 0;
-//
-// function initialize() {
-//   var bangalore = {
-//     lat: 12.97,
-//     lng: 77.59
-//   };
-//   var map = new google.maps.Map(document.getElementById('map'), {
-//     zoom: 12,
-//     center: bangalore
-//   });
-//
-//   // This event listener calls addMarker() when the map is clicked.
-//   google.maps.event.addListener(map, 'click', function(event) {
-//     addMarker(event.latLng, map);
-//   });
-//
-//   // Add a marker at the center of the map.
-//   addMarker(bangalore, map);
-// }
-//
-// // Adds a marker to the map.
-// function addMarker(location, map) {
-//   // Add the marker at the clicked location, and add the next-available label
-//   // from the array of alphabetical characters.
-//   var marker = new google.maps.Marker({
-//     position: location,
-//     label: labels[labelIndex++ % labels.length],
-//     map: map
-//   });
-// }
+  //
+  // function geocodeLatLng(geocoder, map, infowindow) {
+  //   var input = document.getElementById('latlng').value;
+  //   var latlngStr = input.split(',', 2);
+  //   var latlng = {
+  //     lat: parseFloat(latlngStr[0]),
+  //     lng: parseFloat(latlngStr[1])
+  //   };
+  //   geocoder.geocode({
+  //     'location': latlng
+  //   }, function(results, status) {
+  //     if (status === 'OK') {
+  //       if (results[0]) {
+  //         map.setZoom(11);
+  //         var marker = new google.maps.Marker({
+  //           position: latlng,
+  //           map: map
+  //         });
+  //         infowindow.setContent(results[0].formatted_address);
+  //         infowindow.open(map, marker);
+  //       } else {
+  //         window.alert('No results found');
+  //       }
+  //     } else {
+  //       window.alert('Geocoder failed due to: ' + status);
+  //     }
+  //   });
+  // }
 
-// google.maps.event.addDomListener(window, 'load', initialize);
+  // set marker to current position
+  function addMarker(props) {
+    let marker = new google.maps.Marker({
+      position: props.coords,
+      map: map,
+      content: props.content
+    })
+    if (props.content) {
+      infoWindow = new google.maps.InfoWindow({
+        content: props.content
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  }
+};
