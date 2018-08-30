@@ -1,29 +1,80 @@
 <% include ./partials/head %>
 
+   <div class="header">
+      <a href="#default" class="logo">HabitDaily</a>
+      <div class="header-right">
+         <a class="active" href="#home">Home</a>
+         <a href="#contact">Contact</a>
+         <a href="#about">About</a>
+      </div>
+   </div>
 
    <div class="container">
       <div class="jumbotron">
-         <!-- <h1>Bootstrap Tutorial</h1>
-         <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p> -->
          <div class="media">
             <div class="media-left">
-               <img src="http://equifyllc.com/wp-content/uploads/2016/09/round-placeholder.png" class="media-object" style="width:80px">
+               <img src="https://cdn.bulbagarden.net/upload/thumb/6/66/20th_Anniversary_Mew.png/200px-20th_Anniversary_Mew.png" class="media-object" style="width:80px">
             </div>
             <div class="media-body">
-               <h4 class="media-heading">Left-aligned</h4>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+               <h4 class="media-heading">Troy</h4>
+               <div class="w3-container">
+                  <div class="w3-light-grey">
+                     <div id="myBar" class="w3-container w3-blue w3-round-large" style="width:10%">10%</div>
+                  </div>
+                  <br>
+                  <button class="w3-button w3-green" onclick="move()">Click Me</button>
+               </div>
+               <script>
+                  function move() {
+                     var elem = document.getElementById("myBar");
+                     var width = 20;
+                     var id = setInterval(frame, 10);
+
+                     function frame() {
+                        if (width >= 100) {
+                           clearInterval(id);
+                        } else {
+                           width++;
+                           elem.style.width = width + '%';
+                           elem.innerHTML = width * 1 + '%';
+                        }
+                     }
+                  }
+               </script>
             </div>
          </div>
+
          <hr>
+         <!-- line breaker -->
+
          <div class="container">
-            <h2>Animated Progress Bar</h2>
-            <p>The .active class animates the progress bar:</p>
+            <h2>Troy</h2>
+            <!-- change "h2" to display the current user -->
+            <p>l;kj;j kj ; jk k l ;lkj ;lkj; k kjkpouh:</p>
             <div class="progress">
-               <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                  40%
+               <div class="progress-bar progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                  90% (health)
+                  <!-- (style="width:90%)-change to make ajustable -->
                </div>
             </div>
          </div>
-      </div>
 
-      <% include ./partials/footer %>
+         <div class="container">
+            <div class="progress">
+               <div class="progress-bar progress-bar-success progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                  70% (experience)
+               </div>
+            </div>
+         </div>
+
+         <hr>
+
+
+
+
+
+
+
+
+
+         <% include ./partials/footer %>

@@ -5,15 +5,9 @@ const moment = require('moment');
 
 module.exports = {
   renderUser: (req, res) => {
-<<<<<<< HEAD
-    // let curTime = Date.now();
-    // curTime.getHours()
-    // console.log();
     knex('todos')
       .where('todos.user_id', req.params.id)
-      .then((todos) => {
-        console.log(todos);
-=======
+
     let promiseArr = [];
 
     let todos = knex('todos')
@@ -29,7 +23,6 @@ module.exports = {
         // console.log(results[0]);
         // console.log('////////');
         // console.log(results[1]);
->>>>>>> ec396e4aff6d9419096e1ca4bb8f63e98fe28048
         res.render('user', {
           API_KEY: API_KEY,
           user_id: req.session.user_id,
@@ -52,10 +45,15 @@ module.exports = {
         res.redirect(`/user/${req.session.user_id}`);
       })
   },
-<<<<<<< HEAD
 
   next: (req, res) => {
     // console.log(req.session.user_id);
+    // knex('users')
+    // .where('checkins.id', req.params.id)
+    // .del()
+    // .then(() => {
+    //   res.redirect(`/user/${req.session.user_id}`);
+    // })
     if (!req.session.user_id) {
       res.redirect(`/user/${req.session.user_id}`)
     } else {
@@ -65,8 +63,6 @@ module.exports = {
       })
     }
   },
-}
-=======
   createCheckin: (req, res) => {
     knex('checkins')
       .insert({
@@ -202,4 +198,3 @@ module.exports = {
 function calcDistanceToMiles(p1, p2) {
   return (0.621371 * (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000)).toFixed(2);
 }
->>>>>>> ec396e4aff6d9419096e1ca4bb8f63e98fe28048
