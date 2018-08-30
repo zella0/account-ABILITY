@@ -1,6 +1,14 @@
 <% include ./partials/head %>
 
-  <div class="container-fluid main-body">
+<header class="header container-fluid">
+  <div class="row">
+    <div class="col-md-4 user_screen">
+
+    </div>
+  </div>
+</header>
+
+  <div class="container main-body">
 
     <!-- TO DO MODAL  -->
     <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
@@ -96,28 +104,22 @@
       </div>
       <% for(let i = 0; i < checkins.length; i++){ %>
         <div class="row checkin-row">
-          <div class="col-12 row-item">
+          <div class="col-12 row-item ">
             <a href="/user/deleteCheckin/<%= checkins[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
             <p class="text-content">
               <span class="text-content--main"><%= checkins[i].location_address %></span>
               <span class="text-content--date"><%= checkins[i].checkin_time %></span>
               <span class="text-content--sub"><%= checkins[i].description %></span>
             </p>
-            <button class="btn btn-secondary checkLocationBtn" type="button" value="<%= checkins[i].location_latlng %>">Locate!</button>
 
-            <!-- <form action="/user/updateCheckin/<%= checkins[i].id %>" method="post">
-              <div class="form-group">
-                <input type="text" name="checkin_time" class="form-control" value="<%= checkins[i].checkin_time %>" style="display: none">
-                <input type="text" name="location_latlng" class="form-control" value="<%= checkins[i].location_latlng %>" style="display: none">
-              </div>
-              <button type="submit" class="btn btn-primary">Check</button>
-            </form> -->
+            <button class="btn btn-secondary checkLocationBtn" onclick="this.blur()" type="button" value="<%= [checkins[i].location_latlng, checkins[i].checkin_time, checkins[i].id] %>" style="text-decoration: none; outline: none;">
+              <div class="loadingBtns is-paused" style="width: 1.3rem; height: 1.3rem; font-size: 2rem"></div>
+            </button>
 
           </div>
         </div>
         <% } %>
     </div>
-
 
     <!-- TO-DO BOX  -->
     <div class="container main-body__box">
@@ -137,10 +139,8 @@
             </p>
 
             <form action="/user/updateTodo/<%= todos[i].id %>" method="post">
-              <div class="form-group">
                 <input type="text" name="due_date" class="form-control" value="<%= todos[i].due_date %>" style="display: none">
-              </div>
-              <button type="submit" class="btn btn-primary">Check</button>
+              <button type="submit" class="btn btn-secondary" style="width: 4rem; height: 4rem;" onclick="this.className = 'glyphicon glyphicon-ok' "></button>
             </form>
 
           </div>

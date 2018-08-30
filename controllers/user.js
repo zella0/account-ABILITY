@@ -2,6 +2,15 @@ const knex = require("../db/knex.js");
 const fs = require('fs');
 const API_KEY = fs.readFileSync(".apikey", 'utf8');
 const moment = require('moment');
+const axios = require('axios');
+
+// table.string('pokemon_name');
+// table.string('abilities');
+// table.string('img_url');
+// table.integer('level').defaultTo(0);
+// table.integer('hp').defaultTo(100);
+// table.integer('xp').defaultTo(0);
+// table.integer('owner_id')
 
 module.exports = {
   renderUser: (req, res) => {
@@ -15,17 +24,23 @@ module.exports = {
       .where('checkins.user_id', req.params.id);
     promiseArr.push(checkins);
 
+    let user = knex('users')
+      .where('users.id', req.session.user_id)
+    promiseArr.push(user);
+
+    let pokemon = knex('pokemons')
+      .where('pokemons.owner_id', req.session.user_id)
+    promiseArr.push(pokemon);
+
     Promise.all(promiseArr)
       .then((results) => {
-        // console.log(results[0]);
-        // console.log('////////');
-        // console.log(results[1]);
         res.render('user', {
           API_KEY: API_KEY,
           user_id: req.session.user_id,
           todos: results[0],
           checkins: results[1],
-          // moment: moment
+          user: user[2],
+          pokemon: pokemon[3]
         })
       })
   },
@@ -110,70 +125,26 @@ module.exports = {
     }
   },
   updateCheckin: (req, res) => {
-
-    // CHECK FOR TIME
-    let isInTime;
-    let currentDate = moment().format('L');
-    let currentTime = moment().format('hh:mm a');
-    let due_date = req.body.checkin_time.substring(0, 10);
-    let due_time = req.body.checkin_time.substring(11, req.body.checkin_time.length)
-    currentTime = currentTime.replace(/ /g, '').toLowerCase();
-    due_time = due_time.replace(/ /g, '').toLowerCase();
-
-    let beginningTime = moment(currentTime, 'h:mma');
-    let endTime = moment(due_time, 'h:mma');
-    let beforeDueDate = moment(currentDate).isBefore(due_date);
-    let sameDueDate = moment(currentDate).isSame(due_date);
-    let beforeDueTime = beginningTime.isBefore(endTime);
-    if (beforeDueDate === true) {
-      isInTime = true;
-    } else if (sameDueDate === true && beforeDueTime === true) {
-      isInTime = true;
-    } else {
-      isInTime = false;
+    // if past time, send a post request -10 THEN redirect to delete
+    // if within time, check for location
+    // if location out of range dont send a post request
+    // if location in range send a post request +20 THEN redirect to delete
+    if (req.body.isInTime === false) {
+      knex('users')
+        .where('users.id', req.session.user_id)
+        .increment('points', -10)
+        .then(() => {
+          res.redirect(`/user/deleteCheckin/${req.params.id}`);
+        })
+    } else if (req.body.isInTime === true && req.body.isInRange === false) {
+      res.redirect(`/user/${req.session.user_id}`);
+    } else if (req.body.isInTime === true && req.body.isInRange === true) {
+      knex('users')
+        .where('users.id', req.session.user_id)
+        .increment('points', 20)
+        .then(() => {
+          res.redirect(`/user/deleteCheckin/${req.params.id}`);
+        })
     }
-
-    // CHECK FOR LOCATION
-    function initMap() {
-      let isInRange;
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          let destinationCoords = req.body.location_latlng;
-          destinationCoords = destinationCoords.split(',');
-          let destinationLat = Number(destinationCoords[0]);
-          let destinationLng = Number(destinationCoords[1]);
-          let pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-
-          let p1 = new google.maps.LatLng(pos.lat, pos.lng);
-          let p2 = new google.maps.LatLng(destinationLat, destinationLng);
-
-          if (calcDistanceToMiles(p1, p2) <= 0.5) {
-            isInRange = true;
-            alert(`${calcDistanceToMiles(p1, p2)} miles away. In range of location!`)
-          } else {
-            isInRange = false;
-            alert(`${calcDistanceToMiles(p1, p2)} miles away. Not in range of location!`)
-          }
-        }, );
-        return isInRange;
-      }
-    }
-
-    // console.log(isInTime);
-
-    // knex('users')
-    // .where('users.id', req.session.user_id)
-    // .increment('points', 20)
-    // .then(()=>{
-    //   res.redirect(`/user/deleteTodo/${req.params.id}`);
-    // })
-
   }
-}
-
-function calcDistanceToMiles(p1, p2) {
-  return (0.621371 * (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000)).toFixed(2);
 }

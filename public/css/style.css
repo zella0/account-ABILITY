@@ -1,5 +1,5 @@
 :root {
-  --color-primary: rgba(79,102,223,1);
+  --color-primary: rgba(79,80,0,1);
   --color-primary-light: rgba(237,240,255,1);
   --color-primary-dark: rgba(32,25,136,1);
   --color-grey-light-1: #faf9f9;
@@ -40,6 +40,21 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   font-size: 1.5rem; }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1; } }
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn .5s ease-in 1 forwards; }
+
+.is-paused {
+  animation-play-state: paused; }
+
+.header {
+  background-color: var(--color-primary-light);
+  height: 25rem; }
 
 .main-body {
   background-color: var(--color-grey-light-2);

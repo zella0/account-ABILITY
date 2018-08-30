@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
     table.string('title');
     table.string('description');
     table.string('due_date');
-    table.integer('reward_points').defaultTo(10);
     table.integer('user_id')
         .notNullable()
         .references('id')

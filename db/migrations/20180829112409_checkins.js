@@ -5,7 +5,6 @@ exports.up = function(knex, Promise) {
     table.string('location_latlng');
     table.string('description');
     table.string('checkin_time');
-    table.integer('reward_points').defaultTo(20);
     table.integer('user_id')
         .notNullable()
         .references('id')
