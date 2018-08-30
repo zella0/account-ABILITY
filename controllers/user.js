@@ -9,7 +9,7 @@ module.exports = {
     // console.log();
     knex('todos')
       .where('todos.user_id', req.params.id)
-      .then((todos)=>{
+      .then((todos) => {
         console.log(todos);
         res.render('user', {
           API_KEY: API_KEY,
@@ -31,5 +31,17 @@ module.exports = {
       .then(() => {
         res.redirect(`/user/${req.session.user_id}`);
       })
-  }
+  },
+
+  next: (req, res) => {
+    // console.log(req.session.user_id);
+    if (!req.session.user_id) {
+      res.redirect(`/user/${req.session.user_id}`)
+    } else {
+      res.render('useheader', {
+        user_id: req.session.user_id,
+        API_KEY: API_KEY
+      })
+    }
+  },
 }

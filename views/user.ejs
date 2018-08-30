@@ -1,68 +1,68 @@
 <% include ./partials/head %>
+   <a href="/useheader">next</a>
+   <div class="container">
 
-  <div class="container">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal">To-Do</button>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal">To-Do</button>
-
-    <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          </div>
-          <div class="modal-body">
+               </div>
+               <div class="modal-body">
 
-            <form action="/user/<%= user_id %>/createTodo" method="post">
-              <div class="form-group">
-                <label for="title" class="col-form-label">Title*</label>
-                <input type="text" name="title" class="form-control" id="title" required>
-              </div>
-              <div class="form-group">
-                <label for="description" class="col-form-label">Description</label>
-                <textarea name="description" class="form-control" id="description"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="datetimepicker1">Due Date</label>
-                <div class='input-group date' id='datetimepicker1'>
-                  <input type='text' name="time" class="form-control" placeholder="Pick a time..." required>
-                  <span class="input-group-addon">
+                  <form action="/user/<%= user_id %>/createTodo" method="post">
+                     <div class="form-group">
+                        <label for="title" class="col-form-label">Title*</label>
+                        <input type="text" name="title" class="form-control" id="title" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="description" class="col-form-label">Description</label>
+                        <textarea name="description" class="form-control" id="description"></textarea>
+                     </div>
+                     <div class="form-group">
+                        <label for="datetimepicker1">Due Date</label>
+                        <div class='input-group date' id='datetimepicker1'>
+                           <input type='text' name="time" class="form-control" placeholder="Pick a time..." required>
+                           <span class="input-group-addon">
                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="latLng">Latitude/Longitude</label>
-                <input class="form-control" name="latLng" id="latLng" placeholder="Latitude/Longitude">
-              </div>
-              <div class="form-group">
-                <label for="location_address">Location Address</label>
-                <input class="form-control" name="location_address" id="location_address" placeholder="Enter location address..">
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Create</button>
-          </div>
-          </form>
-        </div>
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="latLng">Latitude/Longitude</label>
+                        <input class="form-control" name="latLng" id="latLng" placeholder="Latitude/Longitude">
+                     </div>
+                     <div class="form-group">
+                        <label for="location_address">Location Address</label>
+                        <input class="form-control" name="location_address" id="location_address" placeholder="Enter location address..">
+                     </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
+               </div>
+               </form>
+            </div>
+         </div>
       </div>
-    </div>
 
-  <% for(let i = 0; i < todos.length; i++){ %>
-    <div class="row">
-      <div class="col-1">
-        
-      </div>
-      <div class="col-11">
-        <h5><%= todos[i].title %></h5>
-      </div>
-    </div>
-  <% } %>
+      <% for(let i = 0; i < todos.length; i++){ %>
+         <div class="row">
+            <div class="col-1">
 
-  </div>
+            </div>
+            <div class="col-11">
+               <h5><%= todos[i].title %></h5>
+            </div>
+         </div>
+         <% } %>
+
+   </div>
 
 
-  <% include ./partials/footer %>
+   <% include ./partials/footer %>
