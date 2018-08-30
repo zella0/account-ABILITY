@@ -1,6 +1,6 @@
 <% include ./partials/head %>
 
-  <div class="container main-body">
+  <div class="container-fluid main-body">
 
     <!-- TO DO MODAL  -->
     <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
@@ -20,11 +20,7 @@
                 <input type="text" name="todo_title" class="form-control" id="todo_title" required>
               </div>
               <div class="form-group">
-                <label for="todo_description" class="col-form-label">Description</label>
-                <textarea name="todo_description" class="form-control" id="todo_description"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="todo_datetime">Due Date</label>
+                <label for="todo_datetime">Due Date*</label>
                 <div class='input-group date' id='todo_datetime'>
                   <input type='text' name="todo_time" class="form-control" placeholder="Pick a time..." required>
                   <span class="input-group-addon">
@@ -32,12 +28,18 @@
                   </span>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="todo_description" class="col-form-label">Description</label>
+                <textarea name="todo_description" class="form-control" id="todo_description"></textarea>
+              </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Create</button>
           </div>
           </form>
+
         </div>
       </div>
     </div>
@@ -83,52 +85,70 @@
         </div>
       </div>
     </div>
+    <!-- CHECK-IN MODAL ENDS -->
 
-    <div class="row">
-      <div class="col todo-box">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal">To-Do</button>
-
-        <% for(let i = 0; i < todos.length; i++){ %>
-          <div class="row">
-            <div class="col">
-              <p class="text-content">
-                <span class="text-content--primary"><%= todos[i].title %></span>
-                <span class="text-content--sub"><%= todos[i].description %></span>
-              </p>
-            </div>
-            <div class="col">
-              <p class="text-content">
-                <span class="text-content--primary"><%= todos[i].due_date %></span>
-              </p>
-            </div>
-          </div>
-          <% } %>
-
+    <!-- CHECK-IN BOX  -->
+    <div class="container main-body__box">
+      <div class="row">
+        <div class="col-12 createBtn">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal"><span class="glyphicon glyphicon-plus"></span> Check-In</button>
+        </div>
       </div>
-      <div class="col checkin-box">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal">Check-In</button>
+      <% for(let i = 0; i < checkins.length; i++){ %>
+        <div class="row checkin-row">
+          <div class="col-12 row-item">
+            <a href="/user/deleteCheckin/<%= checkins[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
+            <p class="text-content">
+              <span class="text-content--main"><%= checkins[i].location_address %></span>
+              <span class="text-content--date"><%= checkins[i].checkin_time %></span>
+              <span class="text-content--sub"><%= checkins[i].description %></span>
+            </p>
+            <button class="btn btn-secondary checkLocationBtn" type="button" value="<%= checkins[i].location_latlng %>">Locate!</button>
 
-        <% for(let i = 0; i < checkins.length; i++){ %>
-          <div class="row">
-            <div class="col">
-              <button class="btn btn-secondary checkLocationBtn" type="button" value="<%= checkins[i].location_latlng %>">Locate!</button>
-            </div>
-            <div class="col">
-              <p class="text-content">
-                <span class="text-content--primary"><%= checkins[i].location_address %></span>
-                <span class="text-content--sub"><%= checkins[i].description %></span>
-              </p>
-            </div>
-            <div class="col">
-              <p class="text-content">
-                <span class="text-content--primary"><%= checkins[i].checkin_time %></span>
-              </p>
-            </div>
+            <!-- <form action="/user/updateCheckin/<%= checkins[i].id %>" method="post">
+              <div class="form-group">
+                <input type="text" name="checkin_time" class="form-control" value="<%= checkins[i].checkin_time %>" style="display: none">
+                <input type="text" name="location_latlng" class="form-control" value="<%= checkins[i].location_latlng %>" style="display: none">
+              </div>
+              <button type="submit" class="btn btn-primary">Check</button>
+            </form> -->
+
           </div>
-          <% } %>
-      </div>
-
+        </div>
+        <% } %>
     </div>
+
+
+    <!-- TO-DO BOX  -->
+    <div class="container main-body__box">
+      <div class="row">
+        <div class="col-12 createBtn">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal"><span class="glyphicon glyphicon-plus"></span> To-Do</button>
+        </div>
+      </div>
+      <% for(let i = 0; i < todos.length; i++){ %>
+        <div class="row todo-row">
+          <div class="col-12 row-item todoRows">
+            <a href="/user/deleteTodo/<%= todos[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
+            <p class="text-content">
+              <span class="text-content--main"><%= todos[i].title %></span>
+              <span class="text-content--date"><%= todos[i].due_date %></span>
+              <span class="text-content--sub"><%= todos[i].description %></span>
+            </p>
+
+            <form action="/user/updateTodo/<%= todos[i].id %>" method="post">
+              <div class="form-group">
+                <input type="text" name="due_date" class="form-control" value="<%= todos[i].due_date %>" style="display: none">
+              </div>
+              <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+
+          </div>
+        </div>
+        <% } %>
+    </div>
+
+
 
   </div>
 
