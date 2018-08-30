@@ -2,6 +2,7 @@
    <a href="/useheader">next</a>
    <div class="container">
 
+<<<<<<< HEAD
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal">To-Do</button>
 
       <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
@@ -10,11 +11,23 @@
                <div class="modal-header">
                   <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+=======
+  <div class="container-fluid main-body">
+
+    <!-- TO DO MODAL  -->
+    <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+>>>>>>> ec396e4aff6d9419096e1ca4bb8f63e98fe28048
             <span aria-hidden="true">&times;</span>
           </button>
                </div>
                <div class="modal-body">
 
+<<<<<<< HEAD
                   <form action="/user/<%= user_id %>/createTodo" method="post">
                      <div class="form-group">
                         <label for="title" class="col-form-label">Title*</label>
@@ -61,6 +74,143 @@
             </div>
          </div>
          <% } %>
+=======
+            <form action="/user/<%= user_id %>/createTodo" method="post">
+              <div class="form-group">
+                <label for="todo_title" class="col-form-label">Title*</label>
+                <input type="text" name="todo_title" class="form-control" id="todo_title" required>
+              </div>
+              <div class="form-group">
+                <label for="todo_datetime">Due Date*</label>
+                <div class='input-group date' id='todo_datetime'>
+                  <input type='text' name="todo_time" class="form-control" placeholder="Pick a time..." required>
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="todo_description" class="col-form-label">Description</label>
+                <textarea name="todo_description" class="form-control" id="todo_description"></textarea>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECK-IN MODAL -->
+    <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinModalLabel">Create Check-in</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+          </div>
+          <div class="modal-body">
+            <form action="/user/<%= user_id %>/createCheckin" method="post">
+              <div class="form-group">
+                <label for="location_address">Location Address*</label>
+                <input class="form-control" name="location_address" id="location_address" placeholder="Enter location address.." required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="latLng" id="latLng" placeholder="Latitude/Longitude">
+              </div>
+              <div class="form-group">
+                <label for="checkin_datetime">Check-in Time*</label>
+                <div class='input-group date' id='checkin_datetime'>
+                  <input type='text' name="checkin_time" class="form-control" placeholder="Pick a time..." required>
+                  <span class="input-group-addon">
+                 <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="checkin_description" class="col-form-label">Description</label>
+                <textarea name="checkin_description" class="form-control" id="checkin_description"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- CHECK-IN MODAL ENDS -->
+
+    <!-- CHECK-IN BOX  -->
+    <div class="container main-body__box">
+      <div class="row">
+        <div class="col-12 createBtn">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal"><span class="glyphicon glyphicon-plus"></span> Check-In</button>
+        </div>
+      </div>
+      <% for(let i = 0; i < checkins.length; i++){ %>
+        <div class="row checkin-row">
+          <div class="col-12 row-item">
+            <a href="/user/deleteCheckin/<%= checkins[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
+            <p class="text-content">
+              <span class="text-content--main"><%= checkins[i].location_address %></span>
+              <span class="text-content--date"><%= checkins[i].checkin_time %></span>
+              <span class="text-content--sub"><%= checkins[i].description %></span>
+            </p>
+            <button class="btn btn-secondary checkLocationBtn" type="button" value="<%= checkins[i].location_latlng %>">Locate!</button>
+
+            <!-- <form action="/user/updateCheckin/<%= checkins[i].id %>" method="post">
+              <div class="form-group">
+                <input type="text" name="checkin_time" class="form-control" value="<%= checkins[i].checkin_time %>" style="display: none">
+                <input type="text" name="location_latlng" class="form-control" value="<%= checkins[i].location_latlng %>" style="display: none">
+              </div>
+              <button type="submit" class="btn btn-primary">Check</button>
+            </form> -->
+
+          </div>
+        </div>
+        <% } %>
+    </div>
+
+
+    <!-- TO-DO BOX  -->
+    <div class="container main-body__box">
+      <div class="row">
+        <div class="col-12 createBtn">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal"><span class="glyphicon glyphicon-plus"></span> To-Do</button>
+        </div>
+      </div>
+      <% for(let i = 0; i < todos.length; i++){ %>
+        <div class="row todo-row">
+          <div class="col-12 row-item todoRows">
+            <a href="/user/deleteTodo/<%= todos[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
+            <p class="text-content">
+              <span class="text-content--main"><%= todos[i].title %></span>
+              <span class="text-content--date"><%= todos[i].due_date %></span>
+              <span class="text-content--sub"><%= todos[i].description %></span>
+            </p>
+
+            <form action="/user/updateTodo/<%= todos[i].id %>" method="post">
+              <div class="form-group">
+                <input type="text" name="due_date" class="form-control" value="<%= todos[i].due_date %>" style="display: none">
+              </div>
+              <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+
+          </div>
+        </div>
+        <% } %>
+    </div>
+
+
+>>>>>>> ec396e4aff6d9419096e1ca4bb8f63e98fe28048
 
    </div>
 

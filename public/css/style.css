@@ -36,101 +36,61 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: var(--color-grey-dark-2);
-  /* background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark)); */
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
   font-size: 1.5rem; }
 
-@keyframes greyscaleZoom {
-  0% {
-    filter: grayscale(0%); }
-  100% {
-    filter: grayscale(100%); }
-  to {
-    transform: scale(1.2); } }
-
-@keyframes textFadeIn {
-  0% {
-    opacity: 0;
-    font-size: 0;
-    text-shadow: 0 0 0 var(--color-grey-dark-1); }
-  100% {
-    opacity: 1;
-    font-size: 3rem;
-    text-shadow: 0.3rem 0.3rem 1rem var(--color-grey-dark-1); } }
-
-img {
-  height: 20rem;
-  width: 20rem; }
-
-.header__text-box {
-  padding: 3.5rem; }
-  .header__text-box .heading-primary {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-grey-dark-1);
-    margin: 2rem; }
-    .header__text-box .heading-primary--main {
-      font-size: 4.5rem;
-      font-weight: 900; }
-
-.grid-content {
+.main-body {
+  background-color: var(--color-grey-light-2);
+  max-width: 90rem;
+  padding: 0.1rem !important;
+  margin: 5rem 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap; }
-  .grid-content__card {
+  justify-content: space-between; }
+  .main-body__box {
+    background-color: var(--color-grey-light-1);
+    border: var(--line);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border: var(--line);
-    border-radius: 0.5rem;
-    margin: 1.5rem;
-    background-color: rgba(13, 97, 138, 0.2);
-    padding: 2rem; }
-    .grid-content__card--name {
+    height: 100%; }
+    .main-body__box .createBtn {
+      padding: 0;
+      margin: 0;
+      background-color: var(--color-grey-light-4); }
+      .main-body__box .createBtn button {
+        font-size: 2rem;
+        font-weight: 900;
+        margin: 0;
+        padding: 2rem 0rem;
+        width: 100%; }
+    .main-body__box .row-item {
       display: flex;
-      text-align: center;
-      color: var(--color-primary-light);
-      justify-content: center;
-      text-transform: uppercase; }
-  .grid-content__card:hover {
-    animation: greyscaleZoom 0.3s ease-in-out forwards; }
-  .grid-content__card:hover::after {
-    background-color: var(--color-grey-dark-1);
-    border: var(--line);
-    border-radius: 5px;
-    content: "Book Now";
-    font-weight: 100;
-    font-size: 1px;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    -webkit-text-stroke: 0.7px black;
-    opacity: 0;
-    animation: textFadeIn 0.45s ease-in-out forwards; }
-
-.main-content {
-  margin: auto; }
-  .main-content__text-box .heading-primary {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-grey-dark-1);
-    margin: 2rem; }
-    .main-content__text-box .heading-primary--main {
-      font-size: 4.5rem;
-      font-weight: 900; }
-    .main-content__text-box .heading-primary--sub {
-      font-size: 3rem;
-      font-weight: 400; }
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin: 1.5rem auto;
+      max-height: 10rem; }
+      .main-body__box .row-item .checkLocationBtn {
+        text-align: center;
+        height: 4rem;
+        margin: 1rem; }
+    .main-body__box .checkin-row:nth-child(even) {
+      background-color: var(--color-grey-light-3); }
+    .main-body__box .todo-row:nth-child(odd) {
+      background-color: var(--color-grey-light-3); }
+    .main-body__box .text-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 2rem; }
+      .main-body__box .text-content--main {
+        font-size: 2rem;
+        font-weight: 900; }
+      .main-body__box .text-content--date {
+        font-size: 2rem;
+        font-weight: 300; }
+      .main-body__box .text-content--sub {
+        font-weight: 900; }
 
 /* --------------------------------
 
@@ -474,3 +434,14 @@ navbar
 .sps--blw {
   background-color: var(--color-primary-light);
   color: black; }
+
+.row-item .delete-btn {
+  position: absolute;
+  color: red;
+  top: 40%;
+  left: 0.1rem;
+  font-size: 1.5rem; }
+
+.row-item .delete-btn:hover {
+  transform: translateY(-1rem);
+  font-size: 2.7rem; }

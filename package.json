@@ -19,10 +19,10 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "jquery": "^3.3.1",
-    "jquery-datetimepicker": "^2.5.20",
     "knex": "^0.13.0",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
-    "pg": "^7.3.0"
+    "pg": "^7.3.0",
+    "requirejs": "^2.3.6"
   }
 }

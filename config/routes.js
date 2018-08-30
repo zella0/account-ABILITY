@@ -10,8 +10,15 @@ module.exports = function(app) {
   app.use(authMiddleWare);
   app.get('/user/:id', user_controller.renderUser);
   app.post('/user/:id/createTodo', user_controller.createTodo);
+  app.post('/user/:id/createCheckin', user_controller.createCheckin);
 
   app.get('/useheader', user_controller.next);
+
+
+  app.get('/user/deleteTodo/:id', user_controller.deleteTodo);
+  app.get('/user/deleteCheckin/:id', user_controller.deleteCheckin);
+  app.post('/user/updateTodo/:id', user_controller.updateTodo);
+  app.post('/user/updateCheckin/:id', user_controller.updateCheckin);
 }
 
 function authMiddleWare(req, res, next) {

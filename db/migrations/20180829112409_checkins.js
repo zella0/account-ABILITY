@@ -1,10 +1,11 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('todos', (table) => {
+  return knex.schema.createTable('checkins', (table) => {
     table.increments();
-    table.string('title');
+    table.string('location_address');
+    table.string('location_latlng');
     table.string('description');
-    table.string('due_date');
-    table.integer('reward_points').defaultTo(10);
+    table.string('checkin_time');
+    table.integer('reward_points').defaultTo(20);
     table.integer('user_id')
         .notNullable()
         .references('id')
@@ -16,5 +17,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('todos');
+  return knex.schema.dropTable('checkins');
 };
