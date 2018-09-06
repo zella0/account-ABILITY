@@ -11,7 +11,7 @@ xsigin/signup popup
   width: 100%;
   height: 100%;
   background: rgba(52, 54, 66, 0.9);
-  z-index: 3;
+  z-index: 6;
   overflow-y: auto;
   cursor: pointer;
   visibility: hidden;
@@ -363,33 +363,40 @@ navbar
 
 -------------------------------- */
 
+// NAV BAR BEGINS
+
 .main-nav{
-  z-index: 3;
+  z-index: -1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   position: fixed;
   top: 0;
   left: 0;
-  height: 5rem;
+  height: 7.5rem;
   min-width: 100vw;
 
   &__text{
-    background-color: transparent;
+    // background-color: transparent;
+    font-size: 2rem;
     font-weight: 600;
     margin: 0;
-    padding: 1.3rem 2rem;
-    color: var(--color-grey-dark-1);
+    padding: 1.3rem 3rem;
+    text-decoration: none;
+  }
+  &__text:active{
+    text-decoration: none;
   }
 
   &__text:hover{
-    background-color: var(--color-primary-light);
+    background-color: transparent;
     cursor: pointer;
     text-decoration: none;
   }
 
   &__text span:hover{
     color: var(--color-grey-dark-2);
+    color: white;
   }
 
 }
@@ -405,8 +412,15 @@ navbar
 }
 
 .sps--blw{
-  background-color: var(--color-primary-light);
-  color: black;
+  background-color: rgba(3,41,54,1);
+  color: white;
+}
+
+// NAVBAR ENDS
+
+.avatar-box::after {
+  position: absolute;
+  bottom: 0;
 }
 
 .row-item .delete-btn{
@@ -420,4 +434,78 @@ navbar
 .row-item .delete-btn:hover{
   transform: translateY(-1rem);
   font-size: 2.7rem;
+}
+
+.progress{
+  height: 4rem !important;
+  font-weight: 300;
+  background-color: #aaa !important;
+}
+
+.hp-bar {
+  background-color: red !important;
+  font-size: 2.5rem !important;
+}
+
+.xp-bar {
+  background-color: rgba(119,115,22,1) !important;
+  font-size: 2.5rem !important;
+}
+
+.pure-btn {
+  
+  &:link,
+  &:visited {
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    border-radius: 10rem;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    transform: translateY(-0.05rem);
+    box-shadow: 0 10px 20px rgba(0,0,0,.3);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &--white {
+    font-size: 1.5rem;
+    background-color: var(--color-primary-light);
+    color: var(--color-grey-dark-1);
+    &::after {
+      background-color: white;
+    }
+  }
+
+  &:active {
+    transform: translateY(-0.01rem);
+    background-color: var(--color-grey-dark-1);
+    color: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,.3);
+  }
+
+  &::after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.3s;
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.5s;
+    animation-fill-mode: backwards;
+  }
 }

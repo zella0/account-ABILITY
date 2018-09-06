@@ -4,17 +4,30 @@ const API_KEY = fs.readFileSync(".apikey", 'utf8');
 const moment = require('moment');
 const axios = require('axios');
 
-// table.string('pokemon_name');
-// table.string('abilities');
-// table.string('img_url');
-// table.integer('level').defaultTo(0);
-// table.integer('hp').defaultTo(100);
-// table.integer('xp').defaultTo(0);
-// table.integer('owner_id')
-
 module.exports = {
   renderUser: (req, res) => {
     let promiseArr = [];
+    let now = moment();
+    let timeDiffInSec;
+
+    // if session last time logged in doesnt exist, declare one
+    // if it exists then find the diff between now to last time session logged in
+    // for every 6s difference, pokemon will lose 1 hp
+    console.log(now);
+    if(!req.session.last_online){
+      req.session.last_online = now;
+    } else {
+      timeDiffInSec = now.diff(req.session.last_online, 's');
+      req.session.last_online = now;
+    }
+
+    let hpLoss = Math.round(timeDiffInSec / 1);
+
+    console.log(req.session.last_online);
+    // console.log('-'+hpLoss + ' hp');
+
+    // console.log(timeDiffInSec);
+    // console.log(req.session.last_online.format('L hh:mm:ssa'));
 
     let todos = knex('todos')
       .where('todos.user_id', req.params.id);
@@ -28,21 +41,63 @@ module.exports = {
       .where('users.id', req.session.user_id)
     promiseArr.push(user);
 
-    let pokemon = knex('pokemons')
+
+
+     let hpPromise = knex('pokemons')
       .where('pokemons.owner_id', req.session.user_id)
-    promiseArr.push(pokemon);
+      .then((pokemon)=>{
+        // if pokemon is dead (hp = 0), reset everything
+        if(pokemon[0].hp <= 0){
+        return knex('pokemons')
+          .where('pokemons.owner_id', req.session.user_id)
+          .update({
+            level: 1,
+            hp: 100,
+            xp: 0,
+            img_url: '/img/wobba100hp.png'
+          })
+        }else if(pokemon[0].hp >= 33 && pokemon[0].hp <= 66){
+          let updatedHP = pokemon[0].hp - hpLoss;
+          return knex('pokemons')
+            .where('pokemons.owner_id', req.session.user_id)
+            .update({
+              img_url: '/img/wobba66hp.png',
+              hp: updatedHP
+            })
+        }else if(pokemon[0].hp > 0 && pokemon[0].hp <= 32){
+          let updatedHP = pokemon[0].hp - hpLoss;
+          return knex('pokemons')
+            .where('pokemons.owner_id', req.session.user_id)
+            .update({
+              img_url: '/img/wobba33hp.png',
+              hp: updatedHP
+            })
+        }else{
+        return knex('pokemons')
+          .where('pokemons.owner_id', req.session.user_id)
+          .decrement('hp', hpLoss)
+        }
+      })
+    promiseArr.push(hpPromise);
 
     Promise.all(promiseArr)
       .then((results) => {
-        res.render('user', {
-          API_KEY: API_KEY,
-          user_id: req.session.user_id,
-          todos: results[0],
-          checkins: results[1],
-          user: user[2],
-          pokemon: pokemon[3]
-        })
+        let pokemon = knex('pokemons')
+          .where('pokemons.owner_id', req.session.user_id)
+          .then((pokemon)=>{
+            res.render('user', {
+              API_KEY: API_KEY,
+              user_id: req.session.user_id,
+              todos: results[0],
+              checkins: results[1],
+              user: results[2],
+              pokemon: pokemon
+            })
+          })
       })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   createTodo: (req, res) => {
     knex('todos')
@@ -50,7 +105,6 @@ module.exports = {
         title: req.body.todo_title,
         description: req.body.todo_description,
         due_date: "" || req.body.todo_time,
-        reward_points: 10,
         user_id: req.session.user_id
       })
       .then(() => {
@@ -64,7 +118,6 @@ module.exports = {
         location_latlng: req.body.latLng,
         description: req.body.checkin_description,
         checkin_time: req.body.checkin_time,
-        reward_points: 20,
         user_id: req.session.user_id
       })
       .then(() => {
@@ -147,4 +200,8 @@ module.exports = {
         })
     }
   }
+}
+
+function calcDistanceToMiles(p1, p2) {
+  return (0.621371 * (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000)).toFixed(2);
 }

@@ -1,35 +1,84 @@
 .header {
-  background-color: var(--color-primary-light);
-  height: 25rem;
-}
+  background-color: rgba(133,91,176,.2);
+  box-shadow: 0 5px 24px #777;
 
-.main-body{
-  background-color: var(--color-grey-light-2);
-  max-width: 90rem;
-  padding: 0.1rem !important;
-  margin: 5rem 0;
-  display: flex;
-  justify-content: space-between;
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
 
-  &__box{
-    background-color: var(--color-grey-light-1);
-    border: var(--line);
+  &__box {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    .createBtn{
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  &__box:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__logo-box {
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+  }
+
+  &__text-box {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--index {
+    position: relative;
+    height: 100vh;
+    background-image: linear-gradient(to left top, var(--color-primary), var(--color-secondary));
+    // background-image: url("/img/edgybg.jpg");
+    // background-size: cover;
+    background-position: top;
+    z-index: 0;
+    // clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  }
+
+  &--index::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.2;
+    z-index: -1;
+    background-image: url("/img/edgybg.jpg");
+    background-size: cover;
+
+  }
+}
+
+.main-body {
+  &__box {
+    margin: 4rem;
+
+    .createBtn {
       padding: 0;
       margin: 0;
       background-color: var(--color-grey-light-4);
+
       button {
         font-size: 2rem;
         font-weight: 900;
         margin: 0;
-        padding: 2rem 0rem;
+        padding: 2rem 0;
         width: 100%;
       }
     }
-    .row-item{
+
+    .row-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -37,34 +86,33 @@
       margin: 1.5rem auto;
       max-height: 10rem;
 
-      .checkLocationBtn{
+      .checkLocationBtn {
         text-align: center;
         height: 4rem;
         margin: 1rem;
       }
     }
 
-    .checkin-row:nth-child(even) {
+    .row-container {
       background-color: var(--color-grey-light-3);
     }
 
-    .todo-row:nth-child(odd) {
-      background-color: var(--color-grey-light-3);
-    }
-
-    .text-content{
+    .text-content {
       display: flex;
       flex-direction: column;
       padding: 1rem 2rem;
-      &--main{
+
+      &--main {
         font-size: 2rem;
         font-weight: 900;
       }
-      &--date{
+
+      &--date {
         font-size: 2rem;
         font-weight: 300;
       }
-      &--sub{
+
+      &--sub {
         font-weight: 900;
       }
     }

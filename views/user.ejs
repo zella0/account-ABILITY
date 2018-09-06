@@ -1,154 +1,201 @@
 <% include ./partials/head %>
 
-<header class="header container-fluid">
-  <div class="row">
-    <div class="col-md-4 user_screen">
+  <script type="text/javascript">
 
-    </div>
-  </div>
-</header>
-
-  <div class="container main-body">
-
-    <!-- TO DO MODAL  -->
-    <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  </script>
+  <!-- TO DO MODAL  -->
+  <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="todoModalLabel">Create To-Do</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          </div>
-          <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
-            <form action="/user/<%= user_id %>/createTodo" method="post">
-              <div class="form-group">
-                <label for="todo_title" class="col-form-label">Title*</label>
-                <input type="text" name="todo_title" class="form-control" id="todo_title" required>
-              </div>
-              <div class="form-group">
-                <label for="todo_datetime">Due Date*</label>
-                <div class='input-group date' id='todo_datetime'>
-                  <input type='text' name="todo_time" class="form-control" placeholder="Pick a time..." required>
-                  <span class="input-group-addon">
+          <form action="/user/<%= user_id %>/createTodo" method="post">
+            <div class="form-group">
+              <label for="todo_title" class="col-form-label">Title*</label>
+              <input type="text" name="todo_title" class="form-control" id="todo_title" required>
+            </div>
+            <div class="form-group">
+              <label for="todo_datetime">Due Date*</label>
+              <div class='input-group date' id='todo_datetime'>
+                <input type='text' name="todo_time" class="form-control" placeholder="Pick a time..." required>
+                <span class="input-group-addon">
                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
+                </span>
               </div>
-              <div class="form-group">
-                <label for="todo_description" class="col-form-label">Description</label>
-                <textarea name="todo_description" class="form-control" id="todo_description"></textarea>
-              </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Create</button>
-          </div>
-          </form>
+            </div>
+            <div class="form-group">
+              <label for="todo_description" class="col-form-label">Description</label>
+              <textarea name="todo_description" class="form-control" id="todo_description"></textarea>
+            </div>
 
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+        </form>
+
       </div>
     </div>
+  </div>
 
-    <!-- CHECK-IN MODAL -->
-    <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="checkinModalLabel">Create Check-in</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <!-- CHECK-IN MODAL -->
+  <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkinModalLabel">Create Check-in</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-          </div>
-          <div class="modal-body">
-            <form action="/user/<%= user_id %>/createCheckin" method="post">
-              <div class="form-group">
-                <label for="location_address">Location Address*</label>
-                <input class="form-control" name="location_address" id="location_address" placeholder="Enter location address.." required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" name="latLng" id="latLng" placeholder="Latitude/Longitude">
-              </div>
-              <div class="form-group">
-                <label for="checkin_datetime">Check-in Time*</label>
-                <div class='input-group date' id='checkin_datetime'>
-                  <input type='text' name="checkin_time" class="form-control" placeholder="Pick a time..." required>
-                  <span class="input-group-addon">
+        </div>
+        <div class="modal-body">
+          <form action="/user/<%= user_id %>/createCheckin" method="post">
+            <div class="form-group">
+              <label for="location_address">Location Address*</label>
+              <input class="form-control" name="location_address" id="location_address" placeholder="Enter location address.." required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" name="latLng" id="latLng" placeholder="Latitude/Longitude">
+            </div>
+            <div class="form-group">
+              <label for="checkin_datetime">Check-in Time*</label>
+              <div class='input-group date' id='checkin_datetime'>
+                <input type='text' name="checkin_time" class="form-control" placeholder="Pick a time..." required>
+                <span class="input-group-addon">
                  <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
+                </span>
               </div>
-              <div class="form-group">
-                <label for="checkin_description" class="col-form-label">Description</label>
-                <textarea name="checkin_description" class="form-control" id="checkin_description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="checkin_description" class="col-form-label">Description</label>
+              <textarea name="checkin_description" class="form-control" id="checkin_description"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- CHECK-IN MODAL ENDS -->
+  <header class="header container-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-4 col-sm-4 header__box">
+        <p style="font-weight: 900; font-size: 3rem">
+          <%= pokemon[0].pokemon_name %>
+        </p>
+        <img src="<%= pokemon[0].img_url %>" alt="img url might be broken" style="width: 20rem; height: 20rem; border-radius: 12px" id="avatar">
+        <a onclick="setTimeout(myFunction, 2000); wobbaFeed();" ><button type="button" class="btn btn-primary" style="font-size: 3rem; margin-top: 1rem">Feed</button></a>
+        <script type="text/javascript">
+          function wobbaFeed() {
+            document.getElementById('avatar').src = "/img/wobbafeed.gif";
+          }
+
+          function myFunction() {
+            window.location = "/user/feedPokemon";
+          }
+        </script>
+      </div>
+      <div class="col-lg-10 col-md-8 col-sm-8 header__box">
+        <h1>
+          <span>Level <%= pokemon[0].level %></span>
+          <span>
+          <% if(pokemon[0].hp <= 0){ %>
+            <p class="paragraph">It ded..good thing you do not own a real pet</p>
+          <% } %>
+          </span>
+        </h1>
+        <div class="progress">
+          <!-- 1 level += 10hp  -->
+          <div class="progress-bar hp-bar" role="progressbar" aria-valuenow="<%= (pokemon[0].hp / (90 + (pokemon[0].level * 10)) * 100).toFixed(2) %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= (pokemon[0].hp / (90 + (pokemon[0].level * 10)) * 100).toFixed(2) %>%">
+            <%= (pokemon[0].hp / (90 + (pokemon[0].level * 10)) * 100).toFixed(2) %>% Health
+          </div>
+
+        </div>
+        <div class="progress">
+          <!-- 1 level +=  -->
+          <div class="progress-bar xp-bar" role="progressbar" aria-valuenow="<%= (pokemon[0].xp / (100 * pokemon[0].level)).toFixed(2) * 100 %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= (pokemon[0].xp / (100 * pokemon[0].level)).toFixed(2) * 100 %>%">
+            <%= ((pokemon[0].xp / (100 * pokemon[0].level)) * 100).toFixed(2) %>% Experience
+          </div>
+        </div>
+        <span>
+        <% if(user[0].points < 50){ %>
+          <p class="paragraph">You're too broke to feed your pokemon..<br>
+            <%= user[0].points.toLocaleString('en') %>g</p>
+        <% } %>
+        </span>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="container-fluid main-body">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- CHECK-IN BOX  -->
+        <div class=" main-body__box">
+          <div class="row">
+            <div class="col-12 createBtn">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal"><span class="glyphicon glyphicon-plus"></span> Check-In</button>
+            </div>
+          </div>
+          <% for(let i = 0; i < checkins.length; i++){ %>
+            <div class="row row-container">
+              <div class="col-12 row-item ">
+                <a href="/user/deleteCheckin/<%= checkins[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-trash"></span></a>
+                <p class="text-content">
+                  <span class="text-content--main"><%= checkins[i].location_address %></span>
+                  <span class="text-content--date"><%= checkins[i].checkin_time %></span>
+                  <span class="text-content--sub"><%= checkins[i].description %></span>
+                </p>
+
+                <button class="btn btn-secondary checkLocationBtn" onclick="this.blur()" type="button" value="<%= [checkins[i].location_latlng, checkins[i].checkin_time, checkins[i].id] %>" style="text-decoration: none; outline: none;">
+                <div class="loadingBtns is-paused" style="width: 1.3rem; height: 1.3rem; font-size: 2rem"></div>
+              </button>
+
               </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- TO-DO BOX  -->
+        <div class=" main-body__box">
+          <div class="row">
+            <div class="col-12 createBtn">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal" onclick="this.blur()"><span class="glyphicon glyphicon-plus"></span> To-Do</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Create</button>
-          </div>
-          </form>
+          <% for(let i = 0; i < todos.length; i++){ %>
+            <div class="row row-container">
+              <div class="col-12 row-item">
+                <a href="/user/deleteTodo/<%= todos[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-trash"></span></a>
+                <p class="text-content">
+                  <span class="text-content--main"><%= todos[i].title %></span>
+                  <span class="text-content--date"><%= todos[i].due_date %></span>
+                  <span class="text-content--sub"><%= todos[i].description %></span>
+                </p>
+
+                <form action="/user/updateTodo/<%= todos[i].id %>" method="post">
+                  <input type="text" name="due_date" class="form-control" value="<%= todos[i].due_date %>" style="display: none">
+                  <button type="submit" class="btn btn-secondary" style="width: 4rem; height: 4rem;" onclick="this.className = 'glyphicon glyphicon-ok' "></button>
+                </form>
+
+              </div>
+            </div>
+            <% } %>
         </div>
       </div>
     </div>
-    <!-- CHECK-IN MODAL ENDS -->
-
-    <!-- CHECK-IN BOX  -->
-    <div class="container main-body__box">
-      <div class="row">
-        <div class="col-12 createBtn">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal"><span class="glyphicon glyphicon-plus"></span> Check-In</button>
-        </div>
-      </div>
-      <% for(let i = 0; i < checkins.length; i++){ %>
-        <div class="row checkin-row">
-          <div class="col-12 row-item ">
-            <a href="/user/deleteCheckin/<%= checkins[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
-            <p class="text-content">
-              <span class="text-content--main"><%= checkins[i].location_address %></span>
-              <span class="text-content--date"><%= checkins[i].checkin_time %></span>
-              <span class="text-content--sub"><%= checkins[i].description %></span>
-            </p>
-
-            <button class="btn btn-secondary checkLocationBtn" onclick="this.blur()" type="button" value="<%= [checkins[i].location_latlng, checkins[i].checkin_time, checkins[i].id] %>" style="text-decoration: none; outline: none;">
-              <div class="loadingBtns is-paused" style="width: 1.3rem; height: 1.3rem; font-size: 2rem"></div>
-            </button>
-
-          </div>
-        </div>
-        <% } %>
-    </div>
-
-    <!-- TO-DO BOX  -->
-    <div class="container main-body__box">
-      <div class="row">
-        <div class="col-12 createBtn">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal"><span class="glyphicon glyphicon-plus"></span> To-Do</button>
-        </div>
-      </div>
-      <% for(let i = 0; i < todos.length; i++){ %>
-        <div class="row todo-row">
-          <div class="col-12 row-item todoRows">
-            <a href="/user/deleteTodo/<%= todos[i].id %>" class="delete-btn"><span class="glyphicon glyphicon-remove"></span></a>
-            <p class="text-content">
-              <span class="text-content--main"><%= todos[i].title %></span>
-              <span class="text-content--date"><%= todos[i].due_date %></span>
-              <span class="text-content--sub"><%= todos[i].description %></span>
-            </p>
-
-            <form action="/user/updateTodo/<%= todos[i].id %>" method="post">
-                <input type="text" name="due_date" class="form-control" value="<%= todos[i].due_date %>" style="display: none">
-              <button type="submit" class="btn btn-secondary" style="width: 4rem; height: 4rem;" onclick="this.className = 'glyphicon glyphicon-ok' "></button>
-            </form>
-
-          </div>
-        </div>
-        <% } %>
-    </div>
-
-
 
   </div>
 

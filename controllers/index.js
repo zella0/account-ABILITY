@@ -16,7 +16,7 @@ module.exports = {
   userRegister: (req, res) => {
     knex('users')
       .insert({
-        name: req.body.user_name,
+        user_name: req.body.user_name,
         email: req.body.user_email,
         password: req.body.user_password
       })
@@ -24,13 +24,21 @@ module.exports = {
         res.redirect('/');
       })
   },
+  // when user logs in, create a wobbafet right away
   userLogin: (req, res) => {
     knex('users')
       .where('users.email', req.body.user_email)
       .then((user) => {
         if (user[0].password === req.body.user_password) {
           req.session.user_id = user[0].id;
-          res.redirect(`/user/${user[0].id}`);
+          knex('pokemons')
+          // .where('pokemons.owner_id', )
+          .insert({
+            owner_id: user[0].id
+          })
+          .then(()=>{
+            res.redirect(`/user/${user[0].id}`);
+          })
         } else {
           res.redirect('/');
         }
